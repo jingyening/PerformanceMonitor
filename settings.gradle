@@ -1,0 +1,6 @@
+include ':performane_statistic'
+include ':app'
+rootProject.name = "WT_PerformanceMonitorClient"
+
+include(':aspectplugin')
+project(':aspectplugin').projectDir = new File(rootProject.projectDir, 'gradle_plugins/aspectplugin')
