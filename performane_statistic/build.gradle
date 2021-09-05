@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
 //    id 'com.wt.plugin.aspect'
     id 'android-aspectjx'
+    id 'maven-publish'
 }
 
 android {
@@ -52,4 +53,46 @@ aspectjx {
     //排除所有package路径中包含`android.support`的class文件及库（jar文件）
     exclude 'android.support'
     exclude 'versions.9'
+}
+
+
+//发布时注意
+// 1.请在local.properties里添加属性，赋值在maven的用户名和密码,注意不要加引号
+//maven_username=gages
+//maven_password=gages
+
+Properties properties = new Properties()
+def localPropertiesFile = new File('../local.properties')
+if (null != localPropertiesFile && localPropertiesFile.exists()) {
+    properties.load(localPropertiesFile.newDataInputStream())
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            debug(MavenPublication) {
+                pom {
+                    name = "statistic"
+                    description = "statistic aar"
+                }
+
+                from components.debug
+                groupId = rootProject.ext.maven.groupId
+                artifactId = project.name
+                version = rootProject.ext.maven.version
+            }
+        }
+
+        // 定义发布到哪里
+        repositories {
+            maven {
+                url rootProject.ext.maven.snapshot_url
+                credentials {
+                    username = properties.getProperty('maven.username')
+                    password = properties.getProperty('maven.password')
+                }
+            }
+        }
+    }
+
 }
