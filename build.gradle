@@ -40,6 +40,6 @@ task clean(type: Delete) {
 
 ext.maven = [
         'groupId': "com.wt.performance.monitor",
-        'version': "statistic-0.0.1-SNAPSHOT",
+        'version': "0.0.1-SNAPSHOT",
         'snapshot_url': "http://10.1.120.5:8082/nexus/content/repositories/snapshots/"
 ]

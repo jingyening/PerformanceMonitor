@@ -9,8 +9,9 @@ import android.content.Context
  */
 open class PerformanceMonitor{
 
-    private var mContext:Context? = null
+
     companion object {
+
 
         val instance: PerformanceMonitor by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
             PerformanceMonitor()
@@ -19,7 +20,8 @@ open class PerformanceMonitor{
     }
 
     fun init(context:Context){
-        mContext = context
+        mGlobalContext = context.applicationContext
     }
 
 }
+
